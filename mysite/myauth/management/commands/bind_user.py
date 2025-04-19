@@ -22,4 +22,7 @@ class Command(BaseCommand):
         user.groups.add(group)
 
         # связать пользователя напрямую в разрешения
-        
+        user.user_permissions.add(permission_logentry)
+
+        group.save()
+        user.save()

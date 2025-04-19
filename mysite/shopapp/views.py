@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, \
     UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 
 from shopapp.models import Product, Order
 from shopapp.forms import ProductForm, GroupForm
@@ -54,22 +55,12 @@ class ProductsListView(ListView):
     context_object_name = 'products'
     queryset = Product.objects.filter(archive=False)
 
-def create_product(request: HttpRequest) -> HttpResponse:
-    if request.method == 'POST':
-        form = ProductForm(data=request.POST)
-        if form.is_valid():
-            # Product.objects.create(**form.cleaned_data)
-            form.save()
-            url = reverse('shopapp:products_list')
-            return redirect(url)
-    else:
-        form = ProductForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'shopapp/create-product.html', context=context)
 
-class ProductCreateView(CreateView):
+class ProductCreateView(UserPassesTestMixin,CreateView):
+    def test_func(self):
+        return self.request.user.is_superuser
+    
+
     model = Product
     fields = ('name', 'price', 'description', 'discount')
     success_url = reverse_lazy('shopapp:products_list')
@@ -97,7 +88,7 @@ class ProductDeleteView(DeleteView):
         self.object.save()
         return HttpResponseRedirect(success_url)
 
-class OrderListView(ListView):
+class OrderListView(LoginRequiredMixin, ListView):
     # template_name = 'shopapp/order-list.html'
     queryset = (
         Order.objects
@@ -106,7 +97,8 @@ class OrderListView(ListView):
     )
     context_object_name = 'orders'
 
-class OrderDetailView(DetailView):
+class OrderDetailView(PermissionRequiredMixin,DetailView):
+    permission_required = ['shopapp.view_order']
     # template_name = 'shopapp/order-detail.html'
     queryset = (
         Order.objects
