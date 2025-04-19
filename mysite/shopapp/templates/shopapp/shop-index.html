@@ -1,0 +1,40 @@
+{% extends 'shopapp/base.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+    
+
+{% block body %}
+    <h1>Welcome to {{ title }}!</h1>
+
+    <div>
+        <ul>
+            
+            {% for title, price in products %}
+                <li>{{ title }} {{ title|length }} for ${{ price }}</li>
+                
+                {% if title|length_is:'7' %}
+                    ахаха ебать хуйня жирная
+                {% endif %}
+                    
+            {% empty %}
+            No products here
+            {% endfor %}
+                
+        </ul>
+    </div>
+
+    <div>
+        {% lorem 3 p random %}
+    </div>
+
+
+        
+
+{% endblock body %}
+
+
+
+    

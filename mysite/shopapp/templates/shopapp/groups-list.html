@@ -1,0 +1,37 @@
+{% extends 'shopapp/base.html' %}
+
+
+{% block title %}
+    Group List
+{% endblock title %}
+    
+
+{% block body %}
+    <h1>Groups:</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+    </form>
+    {% for group in groups %}
+        <div>
+            <ul>
+                <li>{{ group }}</li>
+                <ul>
+                    {% for permission in group.permissions.all %}
+
+                    <li>
+                        {{ permission.name }}
+                    </li>
+                    {% endfor %}
+
+                </ul>
+            </ul>
+                
+        </div>
+
+    {% empty %}
+    груп нет иди нахуй
+    {% endfor %}
+        
+{% endblock body %}
+    
