@@ -1,7 +1,35 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.contrib.auth import authenticate, login
-from django.urls import reverse
+from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse, reverse_lazy
+from django.contrib.auth.views import LogoutView
+from django.views.generic import TemplateView, CreateView
+from django.contrib.auth.forms import UserCreationForm
+
+from .models import Profile
+
+
+class AboutMeView(TemplateView):
+    template_name = 'myauth/about-me.html'
+
+
+class RegisterView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'myauth/register.html'
+    success_url = reverse_lazy('myauth:about-me')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        Profile.objects.create(user=self.object)
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password1')
+        user = authenticate(
+            self.request, 
+            username=username, 
+            password=password
+        )
+        login(request=self.request, user=user)
+        return response
 
 
 def login_view(request: HttpRequest) -> HttpResponse:
@@ -19,6 +47,15 @@ def login_view(request: HttpRequest) -> HttpResponse:
             return HttpResponseRedirect('shopapp:products_list')
         return render(request, 'myauth/login.html', {'error': 'Invalid login credentials'})
     
+
+def logout_view(request: HttpRequest) -> HttpResponse:
+    logout(request)
+    return HttpResponseRedirect(reverse('myauth:login'))
+
+
+class MyLogoutView(LogoutView):
+    next_page = reverse_lazy('myauth:login')
+
 
 def set_cookie_view(request: HttpRequest) -> HttpResponse:
     response = HttpResponse('Cookie set')
