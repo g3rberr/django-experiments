@@ -7,9 +7,15 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.views.generic import TemplateView, CreateView
 from django.views import View
-
+from django.utils.translation import gettext as _
 
 from .models import Profile
+
+
+class HelloView(View):
+    def get(self, request: HttpRequest) -> HttpResponse:
+        welcome_message = _('Hello world!')
+        return HttpResponse(f'<h1>{welcome_message}</h1>')
 
 
 class AboutMeView(TemplateView):
