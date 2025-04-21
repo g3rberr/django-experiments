@@ -21,9 +21,11 @@
             {% for product in order.products.all %}
                 <li>{{ product.name }} for {{ product.price }}</li>
             {% endfor %}
+            <p>-------------------------------------------------------------------</p>
                 
         {% empty %}
-        <h1>нихуя нет</h1>
+        <h1>No orders here
+        </h1>
         {% endfor %}
             
     </div>

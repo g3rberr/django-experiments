@@ -17,7 +17,4 @@ class FooBarViewTest(TestCase):
             response.headers['content-type'], 'application/json',
         )
         expected_data = {'foo': 'bar', 'spam': 'eggs'}
-        received_data = json.loads(response.content)
-        self.assertEqual(received_data, expected_data)
         self.assertJSONEqual(response.content, expected_data)
-        

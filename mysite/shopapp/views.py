@@ -42,7 +42,7 @@ class GroupsListView(View):
 
 
 
-class ProductDetailView(DetailView):
+class ProductDetailsView(DetailView):
     template_name = 'shopapp/products-details.html'
     model = Product
     context_object_name = 'product' 
@@ -56,9 +56,9 @@ class ProductsListView(ListView):
     queryset = Product.objects.filter(archive=False)
 
 
-class ProductCreateView(UserPassesTestMixin,CreateView):
-    def test_func(self):
-        return self.request.user.is_superuser
+class ProductCreateView(CreateView): # UserPassesTestMixin
+    # def test_func(self):
+    #     return self.request.user.is_superuser
     
 
     model = Product
@@ -73,7 +73,7 @@ class ProductUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse(
-            'shopapp:product_detail',
+            'shopapp:product_details',
             kwargs={'pk': self.object.pk},
         )
 

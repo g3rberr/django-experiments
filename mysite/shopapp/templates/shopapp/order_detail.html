@@ -16,9 +16,9 @@ Order #{{ order.pk }}
         {% for product in order.products.all %}
             <li>{{ product.name }} for {{ product.price }}</li>
             
-    {% empty %}
-    <h1>нихуя нет</h1>
-    {% endfor %}
+        {% empty %}
+        <h1>No Products here</h1>
+        {% endfor %}
             
     <div>
         <p><a href="{% url 'shopapp:orders_list' %}">Go to list</p></a>

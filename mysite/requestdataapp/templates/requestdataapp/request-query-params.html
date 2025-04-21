@@ -7,7 +7,7 @@
 
 
 {% block body %}
-    <h1>Good afternoon! {% firstof request.GET.name  'еблан укажи имя' %}</h1>
+    <h1>Good afternoon! {% firstof request.GET.name  '(You dont have any name)' %}</h1>
 
     <div>
         <pre>

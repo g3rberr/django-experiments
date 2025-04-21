@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, HttpResponseForbidden, JsonResponse
-from django.contrib.auth import authenticate, login, logout
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
@@ -49,11 +49,6 @@ def login_view(request: HttpRequest) -> HttpResponse:
             login(request, user)
             return HttpResponseRedirect('shopapp:products_list')
         return render(request, 'myauth/login.html', {'error': 'Invalid login credentials'})
-    
-
-def logout_view(request: HttpRequest) -> HttpResponse:
-    logout(request)
-    return HttpResponseRedirect(reverse('myauth:login'))
 
 
 class MyLogoutView(LogoutView):

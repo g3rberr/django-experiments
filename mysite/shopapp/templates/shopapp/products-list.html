@@ -9,22 +9,24 @@
 
 
 {% block body %}
-{% for product in products %}
 
+<h1>Всего продуктов: {{ products | length }}</h1>
+
+{% for product in products %}
 <ul>
-    <p><a href="{% url 'shopapp:product_detail' product.pk %}">Name: {{ product.name }}</a></P>
+    <p><a href="{% url 'shopapp:product_details' product.pk %}">Name: {{ product.name }}</a></P>
     <p>Price: {{ product.price }}</p>
     <p>description: {{ product.description }}</p>
     <p>discount: {% firstof product.discount 'no discount' %}</p>
     <p>--------------------------------</p>
 </ul>
 {% empty %}
-нихуя нет ебень
+There is no products
 {% endfor %}
 
 <div>
     <a href="{% url 'shopapp:product_create' %}">
-        <button type="submit">Создать продукт</button>
+        <button type="submit">Create a product</button>
     </a>
 </div>
 
