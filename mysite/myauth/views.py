@@ -7,15 +7,27 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.views.generic import TemplateView, CreateView
 from django.views import View
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _, ngettext
 
 from .models import Profile
 
 
 class HelloView(View):
+    welcome_message = _('welcome hello world')
+
     def get(self, request: HttpRequest) -> HttpResponse:
-        welcome_message = _('Hello world!')
-        return HttpResponse(f'<h1>{welcome_message}</h1>')
+        items_str = request.GET.get('items') or 0
+        items = int(items_str)
+        products_line = ngettext(
+            'one products',
+            '{count} products',
+            items,
+        )
+        products_line = products_line.format(count=items)
+        return HttpResponse(
+            f'<h1>{self.welcome_message}</h1>'
+            f'\n<h2>{products_line}</h2>'
+            )
 
 
 class AboutMeView(TemplateView):

@@ -35,8 +35,9 @@ class ShopIndexView(View):
             ('Smartphone', 3888),
         ]
         context = {
-            'title': 'SkillBox Shop',
-            'products': products    
+            'title': 'Shop',
+            'products': products,
+            'items': 5,  
         }
         return render(request, 'shopapp/shop-index.html', context)
 

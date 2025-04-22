@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-21 23:39+0000\n"
+"POT-Creation-Date: 2025-04-22 15:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,72 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: myauth/views.py:17
-msgid "Hello world!"
-msgstr ""
+#: myauth/views.py:16
+msgid "welcome hello world"
+msgstr "Hello world!"
 
-#: mysite/settings.py:130
+#: myauth/views.py:22
+#, python-brace-format
+msgid "one products"
+msgid_plural "{count} products"
+msgstr[0] "One product"
+msgstr[1] "{count} products."
+
+#: mysite/settings.py:131
 msgid "English"
 msgstr ""
 
-#: mysite/settings.py:131
-msgid "Russina"
+#: mysite/settings.py:132
+msgid "Russian"
+msgstr ""
+
+#: shopapp/templates/shopapp/products-list.html:6
+msgid "Products"
+msgstr "Products list"
+
+#: shopapp/templates/shopapp/products-list.html:11
+msgid "products in stock"
+msgstr "products in stock"
+
+#: shopapp/templates/shopapp/products-list.html:14
+#, python-format
+msgid ""
+"\n"
+"      There is only one product.\n"
+"      "
+msgid_plural ""
+"\n"
+"      There are %(proucts_count)s products.\n"
+"    "
+msgstr[0] ""
+msgstr[1] ""
+
+#: shopapp/templates/shopapp/products-list.html:23
+msgid "Name"
+msgstr ""
+
+#: shopapp/templates/shopapp/products-list.html:24
+msgid "Price"
+msgstr ""
+
+#: shopapp/templates/shopapp/products-list.html:25
+msgid "Description"
+msgstr ""
+
+#: shopapp/templates/shopapp/products-list.html:26
+msgid "no discount"
+msgstr ""
+
+#: shopapp/templates/shopapp/products-list.html:27
+msgid "Discount"
+msgstr ""
+
+#: shopapp/templates/shopapp/products-list.html:45
+#, python-format
+msgid ""
+"\n"
+"    <h3>There is no products</h3>\n"
+"    <a href=\"%(create_product_url)s\"\n"
+"    >Create a product</a>\n"
+"    "
 msgstr ""

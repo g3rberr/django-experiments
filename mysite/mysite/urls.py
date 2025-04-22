@@ -21,7 +21,6 @@ from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('shop/', include('shopapp.urls', namespace='shopapp')),
     path('req/', include('requestdataapp.urls', namespace='requestdataapp')),
     # path('myauth/', include('myauth.urls', namespace='myauth')),
 
@@ -29,6 +28,8 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path('myauth/', include('myauth.urls', namespace='myauth')),
+    path('shop/', include('shopapp.urls', namespace='shopapp')),
+
 )
 
 if settings.DEBUG:
